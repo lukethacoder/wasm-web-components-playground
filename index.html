@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>wasm-web-components</title>
+    <script type="module">
+      import init, { register } from './pkg/wasm_web_components.js';
+      async function main() {
+        await init();
+        register();
+
+        const dynamicInput = document.querySelector('#dynamic-name-input')
+        const dynamicTarget = document.querySelector('#dynamic-name')
+        if (dynamicInput && dynamicTarget) {
+          dynamicInput.addEventListener('input', (event) => {
+            if (event.target.value) {
+              dynamicTarget.setAttribute('name', event.target.value)
+            } else {
+              dynamicTarget.removeAttribute('name')
+            }
+          })
+        }
+
+        const dynamicAgeInput = document.querySelector('#dynamic-age-input')
+        if (dynamicAgeInput && dynamicTarget) {
+          dynamicAgeInput.addEventListener('input', (event) => {
+            console.log('age ', event.target.value)
+            if (event.target.value) {
+              dynamicTarget.setAttribute('age', event.target.value)
+            } else {
+              dynamicTarget.removeAttribute('age')
+            }
+          })
+        }
+      }
+      main();
+    </script>
+    <style>
+      body {
+        background-color: hsl(240 10% 4%);
+        color: hsl(0 0% 98%);
+
+        --color-primary: hsl(217 91% 59%);
+        --wild-vanilla-color: hsl(142 70% 45%);
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+      }
+      input {
+        background-color: transparent;
+        color: hsl(0 0% 98%);
+        border: 2px solid hsl(0 0% 98%);
+        padding: 4px;
+        margin: 2px 0 0;
+      }
+      input:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+      p {
+        color: var(--color-primary);
+      }
+      wild-vanilla {
+        background-color: teal;
+      }
+    </style>
+	</head>
+  <body>
+    <p>I should be blue</p>
+
+    <label>
+      <span>Dynamic Name</span>
+      <input id="dynamic-name-input" type="text"/>
+    </label>
+
+    <label>
+      <span>Dynamic Age (invalid)</span>
+      <input id="dynamic-age-input" type="number"/>
+    </label>
+
+    <wild-vanilla id="dynamic-name"></wild-vanilla>
+    <wild-vanilla name="Joe"></wild-vanilla>
+    <wild-vanilla name="Benny"></wild-vanilla>
+    <wild-vanilla name="AJ"></wild-vanilla>
+  </body>
+</html>
