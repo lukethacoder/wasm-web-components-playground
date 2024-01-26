@@ -21,12 +21,40 @@ Install Dependencies
 cargo build
 ```
 
-## Build
+## Adding New Components
 
-To build your web components (before running the dev server), run
+We are using Workspaces, so you can add a new component by running:
 
 ```
-wasm-pack build --target web
+cargo new components/NAME_OF_COMPONENT --lib
+```
+
+Make sure to add this snippet to the `Cargo.toml` file for each new component setup.
+
+```toml
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+custom-elements = { workspace = true }
+wasm-bindgen.workspace = true
+web-sys = { version = "0.3", features = [
+  "Window",
+  "Document",
+  "HtmlElement",
+  "Node",
+  "Text"
+]}
+```
+
+## Build
+
+To build your web components (before running the dev server), run:
+
+> NOTE: each component has its own build command. It might be smart to write a script that builds all of the components in one go?
+
+```
+wasm-pack build --target=web --out-dir '../../pkg/NAME_OF_COMPONENT' components/NAME_OF_COMPONENT
 ```
 
 ## Development Server

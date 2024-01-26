@@ -5,10 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>wasm-web-components</title>
     <script type="module">
-      import init, { register } from './pkg/wasm_web_components.js';
+      import helloWorldInit, { register as helloWorldRegister } from './pkg/hello_world/wc_hello_world.js';
+      import buttonInit, { register as buttonRegister } from './pkg/button/wc_button.js';
       async function main() {
-        await init();
-        register();
+        await helloWorldInit();
+        helloWorldRegister();
+        
+        await buttonInit();
+        buttonRegister();
 
         const dynamicInput = document.querySelector('#dynamic-name-input')
         const dynamicTarget = document.querySelector('#dynamic-name')
@@ -81,6 +85,8 @@
       <input id="dynamic-age-input" type="number"/>
     </label>
 
+    <wild-button label="Button label goes here"></wild-button>
+    
     <wild-vanilla id="dynamic-name"></wild-vanilla>
     <wild-vanilla name="Joe"></wild-vanilla>
     <wild-vanilla name="Benny"></wild-vanilla>

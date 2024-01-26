@@ -1,0 +1,20 @@
+[package]
+name = "wc_button"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+custom-elements = { workspace = true }
+wasm-bindgen.workspace = true
+web-sys = { workspace = true, features = [
+  "Window",
+  "Document",
+  "HtmlElement",
+  "Node",
+  "Text"
+] }
