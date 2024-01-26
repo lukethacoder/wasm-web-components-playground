@@ -1,4 +1,15 @@
-# wasm-web-components
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/lukethacoder/word-repo">
+    <img src="https://images.unsplash.com/photo-1550586554-a5a846e56593?q=80&w=2352&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="photograph of 3 random crabs in a nice bowl" width="280">
+  </a>
+
+<h3 align="center">wasm-web-components</h3>
+  <p align="center">
+    playing around with building Web Components in Rust (via WASM)
+  </p>
+</div>
 
 ## Installation
 
