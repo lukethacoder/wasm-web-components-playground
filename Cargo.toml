@@ -1,5 +1,9 @@
 [workspace]
-members = [ "components/button","components/hello_world"]
+members = [
+  "components/button",
+  "components/hello_world",
+  "components/uuid"
+]
 resolver = "2"
 
 [workspace.package]

@@ -1,0 +1,25 @@
+[package]
+name = "wc_uuid"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+custom-elements = { workspace = true }
+wasm-bindgen.workspace = true
+web-sys = { version = "0.3", features = [
+  "Window",
+  "Document",
+  "HtmlElement",
+  "Node",
+  "Text"
+]}
+uuid = { version = "1.7.0", features = [
+  "js",
+  "v4",
+  "fast-rng",
+  "macro-diagnostics",
+]}

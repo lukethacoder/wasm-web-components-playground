@@ -7,12 +7,16 @@
     <script type="module">
       import helloWorldInit, { register as helloWorldRegister } from './pkg/hello_world/wc_hello_world.js';
       import buttonInit, { register as buttonRegister } from './pkg/button/wc_button.js';
+      import uuidInit, { register as uuidRegister } from './pkg/uuid/wc_uuid.js';
       async function main() {
         await helloWorldInit();
         helloWorldRegister();
         
         await buttonInit();
         buttonRegister();
+        
+        await uuidInit();
+        uuidRegister();
 
         const dynamicInput = document.querySelector('#dynamic-name-input')
         const dynamicTarget = document.querySelector('#dynamic-name')
@@ -47,6 +51,7 @@
 
         --color-primary: hsl(217 91% 59%);
         --wild-vanilla-color: hsl(142 70% 45%);
+        --wild-uuid-color: hsl(346 77% 49%);
       }
       label {
         display: flex;
@@ -84,6 +89,8 @@
       <span>Dynamic Age (invalid)</span>
       <input id="dynamic-age-input" type="number"/>
     </label>
+
+    <wild-uuid></wild-uuid>
 
     <wild-button label="Button label goes here"></wild-button>
     
