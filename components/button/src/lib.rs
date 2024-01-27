@@ -1,10 +1,11 @@
 use custom_elements::{inject_style, CustomElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::{window, HtmlElement, Node, Text};
+use web_sys::{window, HtmlElement, Node, Text, Element};
 
 struct MyWebComponent {
     label_node: Text,
+    button_node: Element,
 }
 
 impl MyWebComponent {
@@ -12,17 +13,16 @@ impl MyWebComponent {
         let window = window().unwrap();
         let document = window.document().unwrap();
         let label_node = document.create_text_node("friend");
-        Self { label_node }
+        let button_node = document.create_element("button").unwrap();
+        Self { label_node, button_node }
     }
 
-    fn view(&self) -> Node {
-        let window = window().unwrap();
-        let document = window.document().unwrap();
-        let el = document.create_element("button").unwrap();
-        el.append_child(&self.label_node).unwrap();
-
-        el.unchecked_into()
+    fn view(&self) -> Element {
+        self.button_node.append_child(&self.label_node).unwrap();
+        self.button_node.clone().unchecked_into()
     }
+
+    // methods added here are NOT added to the WC when compiled
 }
 
 impl Default for MyWebComponent {
@@ -30,8 +30,6 @@ impl Default for MyWebComponent {
         Self::new()
     }
 }
-
-
 
 impl CustomElement for MyWebComponent {
     // fn shadow() -> bool {
@@ -48,7 +46,7 @@ impl CustomElement for MyWebComponent {
         // define public attributes
         &["label"]
     }
-
+    
     fn attribute_changed_callback(
         &mut self,
         _this: &HtmlElement,
@@ -70,6 +68,18 @@ impl CustomElement for MyWebComponent {
 
     fn connected_callback(&mut self, _this: &HtmlElement) {
         // log("connected");
+
+        let closure = Closure::<dyn FnMut(_)>::new(move |event: web_sys::MouseEvent| {
+            event.prevent_default();
+            log("custom click event here from rust");          
+        });
+
+        // Result<(), JsValue>
+        let _listener = self.button_node.add_event_listener_with_callback(
+            "click",
+            closure.as_ref().unchecked_ref()
+        );
+        closure.forget();
     }
 
     fn disconnected_callback(&mut self, _this: &HtmlElement) {

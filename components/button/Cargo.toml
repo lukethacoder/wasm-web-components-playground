@@ -16,5 +16,7 @@ web-sys = { workspace = true, features = [
   "Document",
   "HtmlElement",
   "Node",
-  "Text"
+  "Text",
+  "EventTarget",
+  "MouseEvent"
 ] }
